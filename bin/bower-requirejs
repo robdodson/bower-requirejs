@@ -1,0 +1,27 @@
+#!/usr/bin/env node
+'use strict';
+var BowerRequireJS = require('../lib');
+var nopt = require('nopt');
+var path = require('path');
+var knownOpts = {
+  config: path,
+  excludes: Array,
+  baseurl: path
+};
+var shortHands = {
+  c: '--config',
+  e: '--excludes',
+  b: '--baseurl'
+};
+
+var parsed = nopt(knownOpts, shortHands, process.argv);
+var options = {
+  config: 'tmp/config.js',
+  excludes: ['underscore']
+};
+var bowerRequireJS = new BowerRequireJS(options);
+bowerRequireJS.run(function(err) {
+  if (err) {
+    throw err;
+  }
+});

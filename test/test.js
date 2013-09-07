@@ -1,5 +1,9 @@
+/* global describe:true, it:true */
+
 'use strict';
-var grunt = require('grunt');
+var fs = require('fs');
+var should = require('should');
+var BowerRequireJS = require('../lib/index');
 var durableJsonLint = require('durable-json-lint');
 
 // extract the config object as a string from the actual and expected files.
@@ -13,41 +17,80 @@ var jsonify = function (str) {
   return JSON.parse(cleanJson);
 };
 
-exports.bowerRJS = {
-  wireupComponent: function (test) {
-    test.expect(1);
+describe('BowerRequireJS', function() {
+  this.timeout(5000);
 
-    var actual = jsonify(grunt.file.read('tmp/config.js'));
-    var expected = jsonify(grunt.file.read('test/fixtures/config-expected.js'));
-    test.deepEqual(actual, expected, 'should wireup Bower components in RequireJS config');
+  it('should exist', function() {
+    var options = { config: 'tmp/config.js', excludes: ['underscore'] };
+    var bowerRequireJS = new BowerRequireJS(options);
+    should.exist(bowerRequireJS);
+  });
 
-    test.done();
-  },
-  wireupComponentPathless: function (test) {
-    test.expect(1);
+  describe('config', function() {
+    it('should return the expected result', function(done) {
+      var options = { config: 'tmp/config.js', excludes: ['underscore'] };
+      var bowerRequireJS = new BowerRequireJS(options);
+      bowerRequireJS.run(function(err) {
+        if (err) {
+          throw err;
+        }
 
-    var actual = jsonify(grunt.file.read('tmp/pathless-config.js'));
-    var expected = jsonify(grunt.file.read('test/fixtures/pathless-config-expected.js'));
-    test.deepEqual(actual, expected, 'should wireup Bower components in RequireJS config without paths');
+        var actual = jsonify(fs.readFileSync('tmp/config.js', 'utf-8'));
+        var expected = jsonify(fs.readFileSync('test/fixtures/config-expected.js', 'utf-8'));
+        actual.should.eql(expected);
+        done();
+      });
+    });
+  });
 
-    test.done();
-  },
-  wireupComponentGlobalConfig: function (test) {
-    test.expect(1);
+  describe('global-config', function() {
+    it('should return the expected result', function(done) {
+      var options = { config: 'tmp/global-config.js', excludes: ['underscore'] };
+      var bowerRequireJS = new BowerRequireJS(options);
+      bowerRequireJS.run(function(err) {
+        if (err) {
+          throw err;
+        }
 
-    var actual = jsonify(grunt.file.read('tmp/global-config.js'));
-    var expected = jsonify(grunt.file.read('test/fixtures/global-config-expected.js'));
-    test.deepEqual(actual, expected, 'should wireup Bower components in RequireJS config');
+        var actual = jsonify(fs.readFileSync('tmp/global-config.js', 'utf-8'));
+        var expected = jsonify(fs.readFileSync('test/fixtures/global-config-expected.js', 'utf-8'));
+        actual.should.eql(expected);
+        done();
+      });
+    });
+  });
 
-    test.done();
-  },
-  wireupComponentBaseUrlConfig: function (test) {
-    test.expect(1);
+  describe('baseurl', function() {
+    it('should return the expected result', function(done) {
+      var options = { config: 'tmp/baseurl.js', excludes: ['underscore'], baseUrl: './' };
+      var bowerRequireJS = new BowerRequireJS(options);
+      bowerRequireJS.run(function(err) {
+        if (err) {
+          throw err;
+        }
 
-    var actual = jsonify(grunt.file.read('tmp/baseurl.js'));
-    var expected = jsonify(grunt.file.read('test/fixtures/baseurl-expected.js'));
-    test.deepEqual(actual, expected, 'should wireup Bower components relative to baseUrl');
+        var actual = jsonify(fs.readFileSync('tmp/baseurl.js', 'utf-8'));
+        var expected = jsonify(fs.readFileSync('test/fixtures/baseurl-expected.js', 'utf-8'));
+        actual.should.eql(expected);
+        done();
+      });
+    });
+  });
 
-    test.done();
-  }
-};
+  describe('pathless-config', function() {
+    it('should return the expected result', function(done) {
+      var options = { config: 'tmp/pathless-config.js', excludes: ['underscore'] };
+      var bowerRequireJS = new BowerRequireJS(options);
+      bowerRequireJS.run(function(err) {
+        if (err) {
+          throw err;
+        }
+
+        var actual = jsonify(fs.readFileSync('tmp/pathless-config.js', 'utf-8'));
+        var expected = jsonify(fs.readFileSync('test/fixtures/pathless-config-expected.js', 'utf-8'));
+        actual.should.eql(expected);
+        done();
+      });
+    });
+  });
+});

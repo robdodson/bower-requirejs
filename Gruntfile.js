@@ -9,8 +9,9 @@ module.exports = function (grunt) {
       },
       all: [
         'Gruntfile.js',
-        'tasks/*.js',
-        '<%= nodeunit.tests %>'
+        'lib/*.js',
+        'bin/*.js',
+        'test/**/*.js'
       ]
     },
     clean: {
@@ -28,8 +29,14 @@ module.exports = function (grunt) {
         dest: 'tmp/'
       }
     },
-    nodeunit: {
-      tasks: ['test/test.js']
+    simplemocha: {
+      options: {
+        reporter: 'spec',
+        timeout: '5000'
+      },
+      all: {
+        src: ['test/test.js']
+      }
     },
     bower: {
       options: {
@@ -52,8 +59,6 @@ module.exports = function (grunt) {
       }
     }
   });
-
-  grunt.loadTasks('tasks');
 
   grunt.registerTask('mkdir', function (dir) {
     require('fs').mkdirSync(dir);
@@ -83,9 +88,7 @@ module.exports = function (grunt) {
     'mkdir:tmp',
     'copy',
     'bower-install',
-    'bower',
-    'nodeunit',
-    'clean'
+    'simplemocha'
   ]);
 
   grunt.registerTask('default', ['test']);
