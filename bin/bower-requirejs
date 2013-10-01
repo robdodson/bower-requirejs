@@ -3,25 +3,33 @@
 var BowerRequireJS = require('../lib');
 var nopt = require('nopt');
 var path = require('path');
-var knownOpts = {
+
+var opts = nopt({
   config: path,
   excludes: Array,
   baseurl: path
-};
-var shortHands = {
+}, {
   c: '--config',
   e: '--excludes',
   b: '--baseurl'
-};
-
-var parsed = nopt(knownOpts, shortHands, process.argv);
-var options = {
-  config: 'tmp/config.js',
-  excludes: ['underscore']
-};
-var bowerRequireJS = new BowerRequireJS(options);
-bowerRequireJS.run(function(err) {
-  if (err) {
-    throw err;
-  }
 });
+
+var args = opts.argv.remain;
+
+function init() {
+  var bowerRequireJS = new BowerRequireJS(args, opts);
+
+  bowerRequireJS.on('end', function () {
+    console.log('Updated RequireJS config with installed Bower components'.green);
+  });
+
+  bowerRequireJS.on('error', function (err) {
+    console.error('Error', process.argv.slice(2).join(' '), '\n');
+    console.error(opts.debug ? err.stack : err.message);
+    process.exit(err.code || 1);
+  });
+
+  bowerRequireJS.run();
+}
+
+init();
