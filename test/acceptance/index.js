@@ -3,7 +3,6 @@
 'use strict';
 var fs = require('fs');
 var should = require('should');
-var BowerRequireJS = require('../lib/index');
 var durableJsonLint = require('durable-json-lint');
 
 // extract the config object as a string from the actual and expected files.
@@ -17,24 +16,15 @@ var jsonify = function (str) {
   return JSON.parse(cleanJson);
 };
 
-describe('BowerRequireJS', function() {
-  this.timeout(5000);
-
-  it('should exist', function() {
-    var args = [];
-    var opts = { config: 'tmp/config.js', excludes: ['underscore'] };
-    var bowerRequireJS = new BowerRequireJS(args, opts);
-    should.exist(bowerRequireJS);
-  });
+describe('index', function() {
 
   describe('config', function() {
     it('should return the expected result', function(done) {
       var args = [];
       var opts = { config: 'tmp/config.js', excludes: ['underscore'] };
-      var bowerRequireJS = new BowerRequireJS(args, opts);
-      bowerRequireJS.run(function() {
+      require('../../lib')(args, opts, function() {
         var actual = jsonify(fs.readFileSync('tmp/config.js', 'utf-8'));
-        var expected = jsonify(fs.readFileSync('test/fixtures/config-expected.js', 'utf-8'));
+        var expected = jsonify(fs.readFileSync('test/acceptance/fixtures/config-expected.js', 'utf-8'));
         actual.should.eql(expected);
         done();
       });
@@ -45,10 +35,9 @@ describe('BowerRequireJS', function() {
     it('should return the expected result', function(done) {
       var args = [];
       var opts = { config: 'tmp/global-config.js', excludes: ['underscore'] };
-      var bowerRequireJS = new BowerRequireJS(args, opts);
-      bowerRequireJS.run(function() {
+      require('../../lib')(args, opts, function() {
         var actual = jsonify(fs.readFileSync('tmp/global-config.js', 'utf-8'));
-        var expected = jsonify(fs.readFileSync('test/fixtures/global-config-expected.js', 'utf-8'));
+        var expected = jsonify(fs.readFileSync('test/acceptance/fixtures/global-config-expected.js', 'utf-8'));
         actual.should.eql(expected);
         done();
       });
@@ -59,10 +48,9 @@ describe('BowerRequireJS', function() {
     it('should return the expected result', function(done) {
       var args = [];
       var opts = { config: 'tmp/baseurl.js', excludes: ['underscore'], baseUrl: './' };
-      var bowerRequireJS = new BowerRequireJS(args, opts);
-      bowerRequireJS.run(function() {
+      require('../../lib')(args, opts, function() {
         var actual = jsonify(fs.readFileSync('tmp/baseurl.js', 'utf-8'));
-        var expected = jsonify(fs.readFileSync('test/fixtures/baseurl-expected.js', 'utf-8'));
+        var expected = jsonify(fs.readFileSync('test/acceptance/fixtures/baseurl-expected.js', 'utf-8'));
         actual.should.eql(expected);
         done();
       });
@@ -73,10 +61,9 @@ describe('BowerRequireJS', function() {
     it('should return the expected result', function(done) {
       var args = [];
       var opts = { config: 'tmp/pathless-config.js', excludes: ['underscore'] };
-      var bowerRequireJS = new BowerRequireJS(args, opts);
-      bowerRequireJS.run(function() {
+      require('../../lib')(args, opts, function() {
         var actual = jsonify(fs.readFileSync('tmp/pathless-config.js', 'utf-8'));
-        var expected = jsonify(fs.readFileSync('test/fixtures/pathless-config-expected.js', 'utf-8'));
+        var expected = jsonify(fs.readFileSync('test/acceptance/fixtures/pathless-config-expected.js', 'utf-8'));
         actual.should.eql(expected);
         done();
       });

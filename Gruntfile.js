@@ -24,7 +24,7 @@ module.exports = function (grunt) {
     copy: {
       test: {
         expand: true,
-        cwd: 'test/fixtures',
+        cwd: 'test/acceptance/fixtures',
         src: ['*.js', '!*-expected.js'],
         dest: 'tmp/'
       }
@@ -34,8 +34,11 @@ module.exports = function (grunt) {
         reporter: 'spec',
         timeout: '5000'
       },
-      all: {
-        src: ['test/test.js']
+      unit: {
+        src: ['test/*.js']
+      },
+      acceptance: {
+        src: ['test/acceptance/*.js']
       }
     },
     bower: {

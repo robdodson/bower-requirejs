@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 'use strict';
-var BowerRequireJS = require('../lib');
 var nopt = require('nopt');
 var path = require('path');
 
@@ -16,20 +15,4 @@ var opts = nopt({
 
 var args = opts.argv.remain;
 
-function init() {
-  var bowerRequireJS = new BowerRequireJS(args, opts);
-
-  bowerRequireJS.on('end', function () {
-    console.log('Updated RequireJS config with installed Bower components'.green);
-  });
-
-  bowerRequireJS.on('error', function (err) {
-    console.error('Error', process.argv.slice(2).join(' '), '\n');
-    console.error(opts.debug ? err.stack : err.message);
-    process.exit(err.code || 1);
-  });
-
-  bowerRequireJS.run();
-}
-
-init();
+require('../lib')(args, opts);
