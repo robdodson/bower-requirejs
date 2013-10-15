@@ -38,7 +38,7 @@
   ],
   "main": "lib",
   "bin": {
-    "bower-requirejs": "bin/bower-requirejs"
+    "bower-requirejs": "bin/bower-requirejs.js"
   },
   "repository": {
     "type": "git",
