@@ -2,6 +2,7 @@
 'use strict';
 var nopt = require('nopt');
 var path = require('path');
+var project = require('../lib');
 
 var opts = nopt({
   config: path,
@@ -15,4 +16,4 @@ var opts = nopt({
 
 var args = opts.argv.remain;
 
-require('../lib')(args, opts);
+project(args, opts);
