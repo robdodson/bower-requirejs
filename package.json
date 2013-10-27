@@ -55,7 +55,8 @@
     "chalk": "~0.2.1",
     "glob": "~3.2.6",
     "mout": "~0.7.1",
-    "intel": "~0.3.0"
+    "intel": "~0.3.0",
+    "file-utils": "~0.1.2"
   },
   "devDependencies": {
     "matchdep": "~0.1.1",
