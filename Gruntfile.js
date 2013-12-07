@@ -28,7 +28,7 @@ module.exports = function (grunt) {
     },
     simplemocha: {
       options: {
-        reporter: 'spec',
+        reporter: 'dot',
         timeout: '5000'
       },
       bin: {
