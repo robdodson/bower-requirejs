@@ -19,7 +19,13 @@ module.exports = function (grunt) {
       tmp: 'tmp'
     },
     copy: {
-      test: {
+      unit: {
+        expand: true,
+        cwd: 'test/unit/fixtures/bower_components',
+        src: ['**/*'],
+        dest: 'tmp/bower_components'
+      },
+      acceptance: {
         expand: true,
         cwd: 'test/acceptance/fixtures',
         src: ['*.js', '!*-expected.js'],
