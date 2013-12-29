@@ -20,7 +20,7 @@ describe('primary', function () {
   });
 
   it('should return false if no primary js is found', function () {
-    var actual = primary('mout', deps.mout);
+    var actual = primary('noPrimary', deps.noPrimary);
     var expected = false;
     actual.should.eql(expected);
   });

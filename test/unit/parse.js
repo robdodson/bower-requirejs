@@ -29,4 +29,10 @@ describe('parse', function () {
     var expected = { paths: { withCSS: 'tmp/bower_components/withCSS/withCSS' }};
     actual.should.eql(expected);
   });
+
+  it('should return a directory path if one is listed in main', function () {
+    var actual = parse(deps.mout, 'mout', './');
+    var expected = { paths: { mout: 'tmp/bower_components/mout/src' }};
+    actual.should.eql(expected);
+  });
 });

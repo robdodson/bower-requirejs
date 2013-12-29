@@ -7,14 +7,14 @@ module.exports = {
   'requirejs': {
     canonicalDir: './tmp/bower_components/requirejs'
   },
-  'mout': {
-    canonicalDir: './tmp/bower_components/mout'
-  },
   'backbone-amd': {
     canonicalDir: './tmp/bower_components/backbone-amd'
   },
   'jquery-ui-touch-punch-amd': {
     canonicalDir: './tmp/bower_components/jquery-ui-touch-punch-amd'
+  },
+  'noPrimary': {
+    canonicalDir: './tmp/bower_components/no-primary'
   },
 
   // dependencies with a main field for testing parse.js
@@ -36,4 +36,10 @@ module.exports = {
       main: ['withCSS.js', 'withCSS.css']
     }
   },
+  'mout': {
+    canonicalDir: './tmp/bower_components/mout',
+    pkgMeta: {
+      main: 'src/'
+    }
+  }
 };
