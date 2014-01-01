@@ -92,12 +92,19 @@ module.exports = function (grunt) {
     });
   });
 
+  grunt.registerTask('reset-tmp', ['clean:tmp', 'mkdir:tmp']);
+
   grunt.registerTask('test', [
     'clean',
     'mkdir:tmp',
-    'copy',
     'bower-install',
-    'simplemocha',
+    'simplemocha:bin',
+    'reset-tmp',
+    'copy:unit',
+    'simplemocha:unit',
+    'reset-tmp',
+    'copy:acceptance',
+    'simplemocha:acceptance',
     'clean'
   ]);
 

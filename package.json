@@ -1,6 +1,6 @@
 {
   "name": "bower-requirejs",
-  "version": "0.8.2",
+  "version": "0.8.5",
   "description": "Automagically wire-up installed Bower components into your RequireJS config",
   "keywords": [
     "bower",
@@ -64,7 +64,8 @@
     "durable-json-lint": "0.0.1",
     "mocha": "~1.15.1",
     "should": "~2.1.1",
-    "load-grunt-tasks": "~0.2.0"
+    "load-grunt-tasks": "~0.2.0",
+    "mockery": "~1.4.0"
   },
   "peerDependencies": {
     "bower": "~1.x"
@@ -74,6 +75,7 @@
   },
   "files": [
     "bin",
-    "lib"
+    "lib",
+    "templates"
   ]
 }
